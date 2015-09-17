@@ -59,6 +59,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
     public void run() {
         gameOver = true;
         while (thread.isAlive()){
+            score = 0;
             long start, now, elapsedTime;
             long targetTime = 1000000000/FPS;
             long waitTime=0;
@@ -85,7 +86,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
                 }
             }
             while (gameOver){
-             endGame();   
+                endGame();   
             }
         }
         
@@ -165,7 +166,6 @@ public class Game extends JFrame implements Runnable, KeyListener{
         g2.setColor(Color.black);
         g2.setFont(new Font("Arial", Font.BOLD, 24));
         String over[] = {"Press Space to Play Again" ,"Score: "+score, "Game Over"};
-        
         for (int i = 0; i < over.length; i++){
             double x = g2.getFontMetrics().getStringBounds(over[i], g2).getWidth();
             double y = g2.getFontMetrics().getStringBounds(over[i], g2).getHeight();
