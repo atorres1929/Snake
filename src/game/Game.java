@@ -93,7 +93,7 @@ public class Game extends JFrame implements Runnable, KeyListener{
     }
     private void gameRender() {
         
-        g2.setColor(Color.white);
+        g2.setColor(Snake.getRandomColor());
         g2.fillRect(0, 0, dim.width, dim.height);
         
         snake.draw(g2);
