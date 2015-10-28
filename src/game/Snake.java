@@ -18,17 +18,15 @@ import java.util.Random;
  */
 public class Snake {
     
-    public int size;
+    public enum Direction{UP, DOWN, LEFT, RIGHT};
+    
     public ArrayList<Rectangle> parts;
     public Rectangle head;
-    public enum Direction{UP, DOWN, LEFT, RIGHT};
-    public Direction dir = Direction.UP;
-    public final int HEIGHT = Game.dim.height;
-    public final int WIDTH = Game.dim.width;
-    public final static int SCALE = 10;
+    public Direction dir = Direction.UP; //Sets snake's initial travel direction to up
+    
+    public final static int SCALE = 10; //How large the snake is
     
     public Snake(int size){
-        this.size = size;
         parts = new ArrayList<>();
         
         head = (new Rectangle(Game.dim.width/2, Game.dim.height/2, SCALE, SCALE));
@@ -54,7 +52,7 @@ public class Snake {
             case DOWN:
                 r = new Rectangle(head.x, head.y+SCALE, SCALE, SCALE);
                 
-                if (head.y+SCALE < HEIGHT-10 && checkTailCollision(r))
+                if (head.y+SCALE < Game.dim.height-10 && checkTailCollision(r))
                     head = r;
                 else
                     Game.gameOver = true;
@@ -70,7 +68,7 @@ public class Snake {
                 
             case RIGHT:
                 r = new Rectangle(head.x+SCALE, head.y, SCALE, SCALE);
-                if (head.x+SCALE < WIDTH-10  && checkTailCollision(r))
+                if (head.x+SCALE < Game.dim.width-10  && checkTailCollision(r))
                     head = r;
                 else
                     Game.gameOver = true;
@@ -80,10 +78,10 @@ public class Snake {
                 Game.gameOver = true;
                     
         }
-//        System.out.println("X: " + head.x + " || Y: "+ head.y);
         parts.remove(0);
     }
     
+    //Checks if head collides with tail
     public boolean checkTailCollision(Rectangle r){
         for (Rectangle rect : parts){
             if (r.equals(rect))
@@ -92,7 +90,7 @@ public class Snake {
         return true;
     }
 
-    
+    //Draw snake head and body
     public void draw(Graphics2D g){
         g.setColor(Color.white);
         g.fill(head);
@@ -106,7 +104,7 @@ public class Snake {
         }
         
     }
-    
+    //Gets a random color from the list of colors added
     public static Color getRandomColor(){
         ArrayList<Color> colors = new ArrayList<>();
         colors.add(Color.blue);
